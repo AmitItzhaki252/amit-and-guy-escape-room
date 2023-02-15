@@ -2,24 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TMPro;
 
 public class PlayerScript : MonoBehaviour
 {
-    public GameObject player;
+    
+
+public GameObject player;
     public GameObject sheep;
     public GameObject cow;
     public GameObject showingFlowers;
-    public GameObject target;
-
+    public GameObject target;    
     public AudioSource ambience;
     public AudioSource levelOpener;
     public AudioSource levelCloser;
-
+    public TMP_Text timetxt;
     public Volume shockEffect;
-
     private IEnumerator coroutine;
     private bool hasFinishedStage;
-
+    
+    public bool TimerOn;
+    public int time { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -30,13 +33,22 @@ public class PlayerScript : MonoBehaviour
         //StartChallenge();
 
         coroutine = RunShockEffectAndLeaveStage();
-
+        timetxt = GetComponent<TMP_Text>();
         hasFinishedStage = false;
+        TimerOn = false;
+        player.transform.position = new Vector3(453, 15, 340); 
+        time = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (TimerOn)
+        {
+            Debug.Log("calc");
+      
+        //    timetxt.text = time.ToString();
+        }
         if (!hasFinishedStage && HasReachedTarget())
         {
             hasFinishedStage = true;
@@ -45,6 +57,9 @@ public class PlayerScript : MonoBehaviour
 
             return;
         }
+   
+         
+            
 
         UpdateDirectionToTarget();
     }
@@ -94,8 +109,12 @@ public class PlayerScript : MonoBehaviour
         //TODO: GoToNextStage
     }
 
-    void StartChallenge()
+    public void StartChallenge()
     {
+
+        TimerOn = true;
+        Debug.Log("Started");
+        //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
         showingFlowers.SetActive(true);
 
         StopAnimation(cow);
@@ -132,4 +151,5 @@ public class PlayerScript : MonoBehaviour
     {
         print("Colide " + other);
     }
+  
 }
