@@ -25,5 +25,18 @@ public class CameraCollisionScript : MonoBehaviour
 
             gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = newPostion;
         }
+        else if (other.gameObject.CompareTag("Pushable"))
+        {
+            Debug.Log("push");
+            other.GetComponent<Rigidbody>().AddForce(-gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.forward * 100);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("cotact");
+        var contactAmount = collision.contacts;
+        var a = collision.GetContact(0);
+        Debug.Log(a);
     }
 }
