@@ -61,18 +61,17 @@ public class HousePlayerScript : MonoBehaviour
     {
         float distance = Vector3.Distance(player.transform.position, target.transform.position);
 
-        return distance < 5f;
+        return distance < 4.8f;
     }
 
     void FinishStage()
     {
+        TimerOn = false;
+
         StartCoroutine(coroutine);
 
-        ambience.Stop();
-        levelCloser.Play(0);
-
-        floor.SetActive(false);
-        target.SetActive(false);
+        //ambience.Stop();
+        //levelCloser.Play(0);
     }
 
     IEnumerator RunShockEffectAndLeaveStage()

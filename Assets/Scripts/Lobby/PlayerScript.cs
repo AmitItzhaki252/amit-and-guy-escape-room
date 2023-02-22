@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    
-
-public GameObject player;
+    public GameObject player;
     public GameObject sheep;
     public GameObject cow;
     public GameObject showingFlowers;
-    public GameObject target;    
+    public GameObject target;
     public AudioSource ambience;
     public AudioSource levelOpener;
     public AudioSource levelCloser;
@@ -20,7 +19,7 @@ public GameObject player;
     public Volume shockEffect;
     private IEnumerator coroutine;
     private bool hasFinishedStage;
-    
+
     public bool TimerOn;
     public int time { get; set; }
 
@@ -36,7 +35,7 @@ public GameObject player;
         timetxt = GetComponent<TMP_Text>();
         hasFinishedStage = false;
         TimerOn = false;
-        player.transform.position = new Vector3(453, 15, 340); 
+        player.transform.position = new Vector3(453, 15, 340);
         time = 0;
     }
 
@@ -46,8 +45,8 @@ public GameObject player;
         if (TimerOn)
         {
             Debug.Log("calc");
-      
-        //    timetxt.text = time.ToString();
+
+            //    timetxt.text = time.ToString();
         }
         if (!hasFinishedStage && HasReachedTarget())
         {
@@ -57,9 +56,6 @@ public GameObject player;
 
             return;
         }
-   
-         
-            
 
         UpdateDirectionToTarget();
     }
@@ -106,7 +102,7 @@ public GameObject player;
 
     void GoToNextStage()
     {
-        //TODO: GoToNextStage
+        SceneManager.LoadScene("House");
     }
 
     public void StartChallenge()
@@ -151,5 +147,5 @@ public GameObject player;
     {
         print("Colide " + other);
     }
-  
+
 }

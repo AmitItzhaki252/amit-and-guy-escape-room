@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WorldInteractionDemo.unity
     guid: 3d16fc5db26e2354e9ac2a5031a52e6d
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene/Lobby.unity
+    guid: f7299b87605f4cc449c74d29d873a9b8
+  - enabled: 1
+    path: Assets/Scenes/HouseScene/House.unity
+    guid: 48204cdeb5429a2409714ffcd9d4ab90
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 20106be4aefc07045aef8bbf7c8d1942,
       type: 2}
