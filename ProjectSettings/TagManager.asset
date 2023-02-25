@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Blocking
+  - Hammer
   - Pushable
   layers:
   - Default
