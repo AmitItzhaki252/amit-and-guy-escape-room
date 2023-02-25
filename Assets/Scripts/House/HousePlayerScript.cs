@@ -15,7 +15,7 @@ public class HousePlayerScript : MonoBehaviour
     public AudioSource levelOpener;
     public AudioSource levelCloser;
     public TMP_Text timetxt;
-    public Volume shockEffect;
+    public Volume darkEffect;
     private IEnumerator coroutine;
     private bool hasFinishedStage;
 
@@ -27,7 +27,7 @@ public class HousePlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        coroutine = RunShockEffectAndLeaveStage();
+        coroutine = RunDarkEffectAndLeaveStage();
         timetxt = GetComponent<TMP_Text>();
         hasFinishedStage = false;
         TimerOn = true;
@@ -80,17 +80,17 @@ public class HousePlayerScript : MonoBehaviour
         levelCloser.Play(0);
     }
 
-    IEnumerator RunShockEffectAndLeaveStage()
+    IEnumerator RunDarkEffectAndLeaveStage()
     {
         while (true)
         {
-            shockEffect.enabled = true;
+            darkEffect.enabled = true;
 
             Debug.Log($"Shock effect will run for {levelCloser.clip.length} seconds");
 
             yield return new WaitForSeconds(levelCloser.clip.length);
 
-            shockEffect.enabled = false;
+            darkEffect.enabled = false;
 
             Debug.Log($"Shock effect done");
 
@@ -115,11 +115,5 @@ public class HousePlayerScript : MonoBehaviour
 
         TimerOn = true;
         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
-    }
-
-    void StopAnimation(GameObject obj)
-    {
-        var animation = obj.GetComponent<Animator>();
-        animation.enabled = false;
     }
 }

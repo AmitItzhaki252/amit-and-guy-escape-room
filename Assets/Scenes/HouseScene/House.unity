@@ -1360,7 +1360,7 @@ MonoBehaviour:
   levelOpener: {fileID: 101578617}
   levelCloser: {fileID: 101578619}
   timetxt: {fileID: 0}
-  shockEffect: {fileID: 2039749030}
+  darkEffect: {fileID: 2039749030}
   cheat: {fileID: 1543423873}
   TimerOn: 0
 --- !u!82 &101578617
@@ -13366,7 +13366,7 @@ GameObject:
   - component: {fileID: 2039749031}
   - component: {fileID: 2039749030}
   m_Layer: 0
-  m_Name: ShockEffectPostProcessing
+  m_Name: DarkEffectPostProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
