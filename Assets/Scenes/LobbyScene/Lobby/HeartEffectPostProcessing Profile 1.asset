@@ -15,13 +15,13 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.9823413, y: 0, z: 1, w: -1}
+    m_Value: {x: 1, y: 0.08442211, z: 0.91798246, w: -0.052956752}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.048486173, z: 0.2699682, w: -1}
+    m_Value: {x: 1, y: 0.09349018, z: 0.283942, w: 0}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 0.8080497, y: 0, z: 1, w: -1}
+    m_Value: {x: 0.8329973, y: 0, z: 1, w: 0}
   shadowsStart:
     m_OverrideState: 0
     m_Value: 0
@@ -44,12 +44,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: DarknessEffectPostProcessing Profile
+  m_Name: HeartEffectPostProcessing Profile 1
   m_EditorClassIdentifier: 
   components:
   - {fileID: -8541844501856852144}
   - {fileID: 3943686759064632173}
-  - {fileID: 7014942480856876832}
 --- !u!114 &3943686759064632173
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -62,10 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   gaussianStart:
     m_OverrideState: 0
     m_Value: 10
@@ -82,37 +81,17 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 10
   aperture:
-    m_OverrideState: 1
-    m_Value: 32
+    m_OverrideState: 0
+    m_Value: 5.6
   focalLength:
-    m_OverrideState: 1
-    m_Value: 300
+    m_OverrideState: 0
+    m_Value: 50
   bladeCount:
-    m_OverrideState: 1
-    m_Value: 9
+    m_OverrideState: 0
+    m_Value: 5
   bladeCurvature:
-    m_OverrideState: 1
-    m_Value: 0
+    m_OverrideState: 0
+    m_Value: 1
   bladeRotation:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &7014942480856876832
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e021b4c809a781e468c2988c016ebbea, type: 3}
-  m_Name: ColorLookup
-  m_EditorClassIdentifier: 
-  active: 0
-  texture:
-    m_OverrideState: 1
-    m_Value: {fileID: 0}
-    dimension: 1
-  contribution:
-    m_OverrideState: 1
-    m_Value: 0.598

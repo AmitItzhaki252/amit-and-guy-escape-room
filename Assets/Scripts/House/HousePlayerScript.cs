@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HousePlayerScript : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class HousePlayerScript : MonoBehaviour
     private IEnumerator coroutine;
     private bool hasFinishedStage;
 
+    public GameObject cheat;
+
     public bool TimerOn;
     public int time { get; set; }
 
@@ -29,6 +32,9 @@ public class HousePlayerScript : MonoBehaviour
         hasFinishedStage = false;
         TimerOn = true;
         time = 0;
+        
+        if (Application.isEditor)
+            cheat.SetActive(true);
 
         StartChallenge();
     }
@@ -80,9 +86,13 @@ public class HousePlayerScript : MonoBehaviour
         {
             shockEffect.enabled = true;
 
+            Debug.Log($"Shock effect will run for {levelCloser.clip.length} seconds");
+
             yield return new WaitForSeconds(levelCloser.clip.length);
 
             shockEffect.enabled = false;
+
+            Debug.Log($"Shock effect done");
 
             StopCoroutine(coroutine);
 
@@ -94,11 +104,13 @@ public class HousePlayerScript : MonoBehaviour
 
     void GoToNextStage()
     {
-        //TODO: GoToNextStage
+        SceneManager.LoadScene("TstScene");
     }
 
     public void StartChallenge()
     {
+        Debug.Log($"Challenge started");
+
         StartSound();
 
         TimerOn = true;
@@ -109,10 +121,5 @@ public class HousePlayerScript : MonoBehaviour
     {
         var animation = obj.GetComponent<Animator>();
         animation.enabled = false;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        print("Colide " + other);
     }
 }

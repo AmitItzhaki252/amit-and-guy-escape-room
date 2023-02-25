@@ -28,25 +28,30 @@ public class PlayerScript : MonoBehaviour
     public string sec;
     public string min;
 
+    public GameObject cheat;
+
     public bool TimerOn;
     public float time { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        //StartSound();
+        StartSound();
 
         //TODO: This line should run after pressing start escape room button
-        //StartChallenge();
+        StartChallenge();
 
-        //coroutine = RunShockEffectAndLeaveStage();
+        coroutine = RunShockEffectAndLeaveStage();
         hasFinishedStage = false;
         TimerOn = false;
-        player.transform.position = new Vector3(453, 15, 335); 
+        player.transform.position = new Vector3(453, 15, 335);
         time = 0;
         secN = 0;
         minN = 0;
         timeString = "00:00";
+
+        if (Application.isEditor)
+            cheat.SetActive(true);
     }
 
     // Update is called once per frame
@@ -65,27 +70,28 @@ public class PlayerScript : MonoBehaviour
                 min = minN.ToString();
             else
                 min = "0" + minN.ToString();
-          
-            //timetxt.text = min + ":" + sec; //change the text to our time
-            Debug.Log("calc");
 
-                timetxt.text = time.ToString();
+            //timetxt.text = min + ":" + sec; //change the text to our time
+            //Debug.Log("calc");
+
+            timetxt.text = time.ToString();
         }
         if (!hasFinishedStage && HasReachedTarget())
-        
         {
             hasFinishedStage = true;
+
+            Debug.Log("Stage was finished, runnig finish operations");
 
             FinishStage();
 
             return;
         }
+
         UpdateDirectionToTarget();
     }
 
     void StartSound()
     {
-
         levelOpener.Play(0);
         ambience.PlayDelayed(levelOpener.clip.length);
     }
@@ -96,56 +102,63 @@ public class PlayerScript : MonoBehaviour
 
         return distance < 5f;
     }
-  
-    /** void FinishStage()
-     {
-         StartCoroutine(coroutine);
 
-         ambience.Stop();
-         levelCloser.Play(0);
-     }
+    void FinishStage()
+    {
+        StartCoroutine(coroutine);
 
-     IEnumerator RunShockEffectAndLeaveStage()
-     {
-         while (true)
-         {
-             shockEffect.enabled = true;
+        ambience.Stop();
+        levelCloser.Play(0);
+    }
 
-             yield return new WaitForSeconds(levelCloser.clip.length);
+    IEnumerator RunShockEffectAndLeaveStage()
+    {
+        while (true)
+        {
+            shockEffect.enabled = true;
 
-             shockEffect.enabled = false;
+            Debug.Log($"Shock effect will run for {levelCloser.clip.length} seconds");
 
-             StopCoroutine(coroutine);
+            yield return new WaitForSeconds(levelCloser.clip.length);
 
-             GoToNextStage();
+            shockEffect.enabled = false;
 
-             yield return null;
-         }
-     }
+            Debug.Log($"Shock effect done");
+
+            StopCoroutine(coroutine);
+
+            GoToNextStage();
+
+            yield return null;
+        }
+    }
 
     void GoToNextStage()
     {
         SceneManager.LoadScene("House");
     }
 
-          public void StartChallenge()
-     {
+    public void StartChallenge()
+    {
 
-         Debug.Log("Starteeed");
-         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
-         showingFlowers.SetActive(true);
+        Debug.Log("Starting Challenge");
 
-         StopAnimation(cow);
+        canvas.SetActive(false);
+        //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
+        showingFlowers.SetActive(true);
+
+        StopAnimation(cow);
         StopAnimation(sheep);
 
         UpdateDirectionToTarget();
-     }
+    }
 
-     void StopAnimation(GameObject obj)
-     {
-         var animation = obj.GetComponent<Animator>();
-         animation.enabled = false;
-     }
+    void StopAnimation(GameObject obj)
+    {
+        var animation = obj.GetComponent<Animator>();
+        animation.enabled = false;
+    }
+
     void UpdateDirectionToTarget()
     {
 
@@ -161,10 +174,5 @@ public class PlayerScript : MonoBehaviour
 
         sheep.transform.LookAt(player.transform);
         cow.transform.LookAt(player.transform);
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        print("Colide " + other);
     }
 }

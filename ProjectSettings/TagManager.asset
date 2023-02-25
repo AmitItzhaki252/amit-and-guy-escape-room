@@ -8,6 +8,7 @@ TagManager:
   - Blocking
   - Hammer
   - Pushable
+  - Cheat
   layers:
   - Default
   - TransparentFX

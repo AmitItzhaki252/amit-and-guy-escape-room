@@ -1,58 +1,111 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using TMPro;
+using System.Threading;
 
 public class CameraCollisionScript : MonoBehaviour
 {
+    public Vector3 defaultLocation;
+    public Vector3 destinationLocation;
+
+    public GameObject objectToDisable;
+
+    public Volume heartEffect;
+
+    private IEnumerator heartCoroutine;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        heartCoroutine = RunHeartEffect();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //    var a = Input.GetAxis("Horizontal");
-        //    Debug.Log(a);
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Blocking"))
         {
-            var playerPosition = gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position;
+            Debug.Log($"Trigger Blocking ${gameObject} hit ${other}");
 
+            if (!heartEffect.enabled)
+                StartCoroutine(heartCoroutine);
 
-            Debug.Log("Blocking");
-
-            Vector3 newPostion = playerPosition + (playerPosition - other.transform.position).normalized;
-            newPostion.y = playerPosition.y;
-
-            gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = newPostion;
+            gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = defaultLocation;
         }
-        else if (other.gameObject.CompareTag("Pushable"))
+        else if (other.gameObject.CompareTag("Cheat"))
         {
-            other.GetComponent<Rigidbody>().AddForce(gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.forward * 3000);
+            Debug.Log($"Trigger Cheat ${gameObject} hit ${other}");
+
+            OrderSolution();
         }
+    }
+
+    private void OrderSolution()
+    {
+        if (!(objectToDisable is null))
+            objectToDisable.SetActive(false);
+
+        gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = destinationLocation;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("cotact");
-        var contactAmount = collision.contacts;
-        var a = collision.GetContact(0);
-        Debug.Log(a);
-
         GameObject other = collision.gameObject;
 
-        Animator[] animations = other.GetComponentsInChildren<Animator>();
+        if (other.gameObject.CompareTag("Blocking"))
+        {
+            Debug.Log($"Collision Blocking ${gameObject} hit ${other}");
 
-        var animation = animations[0].GetComponent<Animator>();
-        animation.enabled = true;
-        
-        animation.Play("Base Layer.WheelAnimation", -1, 0f);
-        animation.Play("Base Layer.WheelAnimation");
+            StartCoroutine(heartCoroutine);
 
-        Debug.Log(animation);
+            gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = defaultLocation;
+        }
+        else if (other.gameObject.CompareTag("Pushable"))
+        {
+            Debug.Log($"Collision Pushable ${gameObject} hit ${other}");
+
+            Animator[] animations = other.GetComponentsInChildren<Animator>();
+
+            var animation = animations[0].GetComponent<Animator>();
+            animation.enabled = true;
+
+            animation.Play("Base Layer.WheelAnimation", -1, 0f);
+            animation.Play("Base Layer.WheelAnimation");
+        }
+        else if (other.gameObject.CompareTag("Cheat"))
+        {
+            Debug.Log($"Collision Cheat ${gameObject} hit ${other}");
+
+            OrderSolution();
+        }
+    }
+
+    IEnumerator RunHeartEffect()
+    {
+        while (true)
+        {
+            if (!heartEffect.enabled)
+                heartEffect.enabled = true;
+
+            Debug.Log($"Start running heart effect for {3} secinds");
+
+            yield return new WaitForSeconds(3.0f);
+
+            if (heartEffect.enabled)
+                heartEffect.enabled = false;
+
+            Debug.Log($"Done running heart effect");
+
+            StopCoroutine(heartCoroutine);
+
+            yield return null;
+        }
     }
 }
