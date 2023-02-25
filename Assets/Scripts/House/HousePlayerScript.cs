@@ -9,6 +9,7 @@ public class HousePlayerScript : MonoBehaviour
     public GameObject player;
     public GameObject floor;
     public GameObject target;
+    public GameObject crow;
     public AudioSource ambience;
     public AudioSource levelOpener;
     public AudioSource levelCloser;
@@ -47,7 +48,6 @@ public class HousePlayerScript : MonoBehaviour
 
             return;
         }
-
     }
 
     void StartSound()
@@ -70,8 +70,8 @@ public class HousePlayerScript : MonoBehaviour
 
         StartCoroutine(coroutine);
 
-        //ambience.Stop();
-        //levelCloser.Play(0);
+        ambience.Stop();
+        levelCloser.Play(0);
     }
 
     IEnumerator RunShockEffectAndLeaveStage()
@@ -99,6 +99,7 @@ public class HousePlayerScript : MonoBehaviour
 
     public void StartChallenge()
     {
+        StartSound();
 
         TimerOn = true;
         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
