@@ -41,10 +41,11 @@ public class CameraCollisionScript : MonoBehaviour
         if (other.gameObject.CompareTag("Blocking"))
         {
             Debug.Log($"Trigger Blocking ${gameObject} hit ${other}");
-
-            if (!heartEffect.enabled)
-                StartCoroutine(heartCoroutine);
-
+            if (heartEffect != null)
+            {
+                if (!heartEffect.enabled)
+                    StartCoroutine(heartCoroutine);
+            }
             gameObject.transform.parent.gameObject.transform.parent.gameObject.transform.position = defaultLocation;
         }
         else if (other.gameObject.CompareTag("Cheat"))
