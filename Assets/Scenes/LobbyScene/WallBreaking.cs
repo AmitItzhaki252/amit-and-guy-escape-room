@@ -30,7 +30,7 @@ public class WallBreaking : MonoBehaviour
             HP = HP - 1;
             if (HP == 0)
             {
-                partic.SetActive(true);
+                particle.SetActive(true);
                 wall.SetActive(false);
             }
             else

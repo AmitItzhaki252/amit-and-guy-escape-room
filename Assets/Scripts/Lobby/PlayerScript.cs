@@ -5,12 +5,11 @@ using UnityEngine.Rendering;
 using TMPro;
 using System.Threading;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    
-
-public GameObject player;
+    public GameObject player;
     public GameObject sheep;
     public GameObject cow;
     public GameObject showingFlowers;
@@ -28,8 +27,6 @@ public GameObject player;
     public int minN;
     public string sec;
     public string min;
-
-
 
     public bool TimerOn;
     public float time { get; set; }
@@ -54,7 +51,7 @@ public GameObject player;
 
     // Update is called once per frame
     void Update()
-    {/**
+    {
         if (!canvas.activeSelf) //when we start, update time.  // TODO: activate/de-activate when we play
         {
             time += Time.deltaTime;
@@ -69,7 +66,10 @@ public GameObject player;
             else
                 min = "0" + minN.ToString();
           
-            timetxt.text = min + ":" + sec; //change the text to our time
+            //timetxt.text = min + ":" + sec; //change the text to our time
+            Debug.Log("calc");
+
+                timetxt.text = time.ToString();
         }
         if (!hasFinishedStage && HasReachedTarget())
         
@@ -80,10 +80,6 @@ public GameObject player;
 
             return;
         }
-   
-         
-            
-        */
         UpdateDirectionToTarget();
     }
 
@@ -127,24 +123,22 @@ public GameObject player;
          }
      }
 
-     void GoToNextStage()
-     {
-         //TODO: GoToNextStage
-     }
+    void GoToNextStage()
+    {
+        SceneManager.LoadScene("House");
+    }
 
-     public void StartChallenge()
+          public void StartChallenge()
      {
-
-         
 
          Debug.Log("Starteeed");
-         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(ìtextî);
+         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(‚Äútext‚Äù);
          showingFlowers.SetActive(true);
 
-    //     StopAnimation(cow);
-    //     StopAnimation(sheep);
+         StopAnimation(cow);
+        StopAnimation(sheep);
 
-    //     UpdateDirectionToTarget();
+        UpdateDirectionToTarget();
      }
 
      void StopAnimation(GameObject obj)
@@ -152,29 +146,25 @@ public GameObject player;
          var animation = obj.GetComponent<Animator>();
          animation.enabled = false;
      }
-    */
     void UpdateDirectionToTarget()
     {
 
         var playerLocation = player.transform.position;
-        //var targetLocation = target.transform.position;
+        var targetLocation = target.transform.position;
 
-        //var directionX = (1.2f * targetLocation.x + playerLocation.x) / 2.2f;
-        //var directionZ = (1.2f * targetLocation.z + playerLocation.z) / 2.2f;
+        var directionX = (1.2f * targetLocation.x + playerLocation.x) / 2.2f;
+        var directionZ = (1.2f * targetLocation.z + playerLocation.z) / 2.2f;
 
         var y = 22f;
-        /**
         sheep.transform.position = new Vector3(directionX + 0.75f, y, directionZ + 0.75f);
         cow.transform.position = new Vector3(directionX - 0.75f, y, directionZ - 0.75f);
 
         sheep.transform.LookAt(player.transform);
         cow.transform.LookAt(player.transform);
-        */
     }
 
     void OnTriggerEnter(Collider other)
     {
         print("Colide " + other);
     }
-  
 }
