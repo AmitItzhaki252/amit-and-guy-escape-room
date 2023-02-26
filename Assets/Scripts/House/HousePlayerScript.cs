@@ -26,10 +26,6 @@ public class HousePlayerScript : MonoBehaviour
         player.transform.position = new Vector3(24.5799999f, 6f, -3.29999995f);
 
         coroutine = RunDarkEffectAndLeaveStage();
-        timetxt = GetComponent<TMP_Text>();
-        hasFinishedStage = false;
-        TimerOn = true;
-        time = 0;
         
         if (Application.isEditor)
             cheat.SetActive(true);
@@ -40,10 +36,6 @@ public class HousePlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TimerOn && !(timetxt is null))
-        {
-            timetxt.text = time.ToString();
-        }
         if (!hasFinishedStage && HasReachedTarget())
         {
             TimeHolder.timerOn = false;
@@ -71,8 +63,6 @@ public class HousePlayerScript : MonoBehaviour
 
     void FinishStage()
     {
-        TimerOn = false;
-
         StartCoroutine(coroutine);
 
         ambience.Stop();
