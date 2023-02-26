@@ -14,15 +14,11 @@ public class HousePlayerScript : MonoBehaviour
     public AudioSource ambience;
     public AudioSource levelOpener;
     public AudioSource levelCloser;
-    public TMP_Text timetxt;
     public Volume darkEffect;
     private IEnumerator coroutine;
     private bool hasFinishedStage;
 
     public GameObject cheat;
-
-    public bool TimerOn;
-    public int time { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +46,7 @@ public class HousePlayerScript : MonoBehaviour
         }
         if (!hasFinishedStage && HasReachedTarget())
         {
+            TimeHolder.timerOn = false;
             hasFinishedStage = true;
 
             FinishStage();
@@ -113,9 +110,8 @@ public class HousePlayerScript : MonoBehaviour
     {
         Debug.Log($"Challenge started");
 
-        StartSound();
+        TimeHolder.timerOn = true;
 
-        TimerOn = true;
-        //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
+        StartSound();
     }
 }

@@ -15,23 +15,19 @@ public class PlayerScript : MonoBehaviour
     public GameObject showingFlowers;
     public GameObject target;
     public GameObject canvas;
+    public TextMeshProUGUI score1;
+    public TextMeshProUGUI score2;
+    public TextMeshProUGUI score3;
     public AudioSource ambience;
     public AudioSource levelOpener;
     public AudioSource levelCloser;
-    public TMP_Text timetxt;
     public Volume shockEffect;
     private IEnumerator coroutine;
     private bool hasFinishedStage;
-    private string timeString;
-    public int secN;
-    public int minN;
-    public string sec;
-    public string min;
+
+    private string[] names = new string[] { "Amit", "Guy", "Omri", "Cow", "Lama", "Sheep", "Scary singer", "Jane", "Jhon", "Dow", "The Ghost" };
 
     public GameObject cheat;
-
-    public bool TimerOn;
-    public float time { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -40,44 +36,22 @@ public class PlayerScript : MonoBehaviour
 
         StartSound();
 
-        //TODO: This line should run after pressing start escape room button
-        //StartChallenge();
-
         coroutine = RunShockEffectAndLeaveStage();
         hasFinishedStage = false;
-        TimerOn = false;
-        
-        time = 0;
-        secN = 0;
-        minN = 0;
-        timeString = "00:00";
 
-        if (Application.isEditor)
+        TimeHolder.Setup();
+
+        ShowHighScores();
+
+        if (Application.isEditor && !(cheat is null))
             cheat.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!canvas.activeSelf) //when we start, update time.  // TODO: activate/de-activate when we play
-        {
-            time += Time.deltaTime;
-            secN = (int)Math.Round(time);
-            minN = secN / 60;
-            if (secN % 60 > 9)
-                sec = (secN % 60).ToString();
-            else
-                sec = "0" + (secN % 60).ToString();
-            if (minN > 9)
-                min = minN.ToString();
-            else
-                min = "0" + minN.ToString();
+        TimeHolder.Update();
 
-            //timetxt.text = min + ":" + sec; //change the text to our time
-            //Debug.Log("calc");
-
-            timetxt.text = time.ToString();
-        }
         if (!hasFinishedStage && HasReachedTarget())
         {
             hasFinishedStage = true;
@@ -107,6 +81,8 @@ public class PlayerScript : MonoBehaviour
 
     void FinishStage()
     {
+        TimeHolder.timerOn = false;
+
         StartCoroutine(coroutine);
 
         ambience.Stop();
@@ -142,17 +118,18 @@ public class PlayerScript : MonoBehaviour
 
     public void StartChallenge()
     {
-
         Debug.Log("Starting Challenge");
 
         canvas.SetActive(false);
-        //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
+        
         showingFlowers.SetActive(true);
 
         StopAnimation(cow);
         StopAnimation(sheep);
 
         UpdateDirectionToTarget();
+
+        TimeHolder.timerOn = true;
     }
 
     void StopAnimation(GameObject obj)
@@ -176,5 +153,24 @@ public class PlayerScript : MonoBehaviour
 
         sheep.transform.LookAt(player.transform);
         cow.transform.LookAt(player.transform);
+    }
+
+    void ShowHighScores()
+    {
+        var prefScoreName1 = PlayerPrefs.GetString("ScoreName1", "It could be you 1!");
+        var prefScore1 = PlayerPrefs.GetInt("Score1", 0);
+
+        score1.text = prefScoreName1 + ": " + prefScore1;
+        Debug.Log(score1.text);
+
+        var prefScoreName2 = PlayerPrefs.GetString("ScoreName2", "It could be you 2!");
+        var prefScore2 = PlayerPrefs.GetInt("Score2", 0);
+        
+        score2.text = prefScoreName2 + ": " + prefScore2;
+
+        var prefScoreName3 = PlayerPrefs.GetString("ScoreName3", "It could be you 3!");
+        var prefScore3 = PlayerPrefs.GetInt("Score3", 0);
+        
+        score3.text = prefScoreName3 + ": " + prefScore3;
     }
 }

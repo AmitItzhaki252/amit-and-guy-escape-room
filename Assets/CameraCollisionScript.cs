@@ -11,7 +11,7 @@ public class CameraCollisionScript : MonoBehaviour
     public Vector3 defaultLocation;
     public Vector3 destinationLocation;
 
-    public GameObject objectToDisable;
+    public GameObject objectToDisable = null;
 
     public PlayerScript playerScript;
 

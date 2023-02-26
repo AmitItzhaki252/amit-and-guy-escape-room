@@ -9,6 +9,7 @@ TagManager:
   - Hammer
   - Pushable
   - Cheat
+  - BigHammer
   layers:
   - Default
   - TransparentFX
