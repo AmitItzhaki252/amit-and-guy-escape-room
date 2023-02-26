@@ -36,15 +36,17 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player.transform.position = new Vector3(456.339996f, 15.4500008f, 342.73999f);
+
         StartSound();
 
         //TODO: This line should run after pressing start escape room button
-        StartChallenge();
+        //StartChallenge();
 
         coroutine = RunShockEffectAndLeaveStage();
         hasFinishedStage = false;
         TimerOn = false;
-        player.transform.position = new Vector3(453, 15, 335);
+        
         time = 0;
         secN = 0;
         minN = 0;

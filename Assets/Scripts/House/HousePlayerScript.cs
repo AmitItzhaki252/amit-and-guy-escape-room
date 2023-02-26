@@ -27,6 +27,8 @@ public class HousePlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player.transform.position = new Vector3(24.5799999f, 6f, -3.29999995f);
+
         coroutine = RunDarkEffectAndLeaveStage();
         timetxt = GetComponent<TMP_Text>();
         hasFinishedStage = false;

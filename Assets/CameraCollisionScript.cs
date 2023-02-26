@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using TMPro;
 using System.Threading;
+using UnityEditor;
 
 public class CameraCollisionScript : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CameraCollisionScript : MonoBehaviour
     public Vector3 destinationLocation;
 
     public GameObject objectToDisable;
+
+    public PlayerScript playerScript;
 
     public Volume heartEffect;
 
@@ -21,6 +24,9 @@ public class CameraCollisionScript : MonoBehaviour
     void Start()
     {
         heartCoroutine = RunHeartEffect();
+
+        if (Application.isEditor)
+            playerScript = GameObject.Find("XR Origin").GetComponent<PlayerScript>();
     }
 
     // Update is called once per frame
@@ -30,6 +36,8 @@ public class CameraCollisionScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"Trigger {other.gameObject.name}");
+
         if (other.gameObject.CompareTag("Blocking"))
         {
             Debug.Log($"Trigger Blocking ${gameObject} hit ${other}");
@@ -44,6 +52,14 @@ public class CameraCollisionScript : MonoBehaviour
             Debug.Log($"Trigger Cheat ${gameObject} hit ${other}");
 
             OrderSolution();
+        }
+        else if (!(playerScript is null) && other.gameObject.name == "Start btn")
+        {
+            playerScript.StartChallenge();
+        }
+        else if (!(playerScript is null) && other.gameObject.name == "Exit btn")
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
         }
     }
 
@@ -73,11 +89,14 @@ public class CameraCollisionScript : MonoBehaviour
 
             Animator[] animations = other.GetComponentsInChildren<Animator>();
 
-            var animation = animations[0].GetComponent<Animator>();
-            animation.enabled = true;
+            foreach (var animation in animations)
+            {
+                var animationComponent = animation.GetComponent<Animator>();
+                animationComponent.enabled = true;
 
-            animation.Play("Base Layer.WheelAnimation", -1, 0f);
-            animation.Play("Base Layer.WheelAnimation");
+                animationComponent.Play("Base Layer.WheelAnimation", -1, 0f);
+                animationComponent.Play("Base Layer.WheelAnimation");
+            }
         }
         else if (other.gameObject.CompareTag("Cheat"))
         {
