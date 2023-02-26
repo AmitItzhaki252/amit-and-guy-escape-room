@@ -42,7 +42,7 @@ public class PlayerScript : MonoBehaviour
         //coroutine = RunShockEffectAndLeaveStage();
         hasFinishedStage = false;
         TimerOn = false;
-        player.transform.position = new Vector3(453, 15, 335); 
+        player.transform.position = new Vector3(453, 15, 335);
         time = 0;
         secN = 0;
         minN = 0;
@@ -65,14 +65,14 @@ public class PlayerScript : MonoBehaviour
                 min = minN.ToString();
             else
                 min = "0" + minN.ToString();
-          
+
             //timetxt.text = min + ":" + sec; //change the text to our time
             Debug.Log("calc");
 
-                timetxt.text = time.ToString();
+            timetxt.text = time.ToString();
         }
         if (!hasFinishedStage && HasReachedTarget())
-        
+
         {
             hasFinishedStage = true;
 
@@ -96,56 +96,56 @@ public class PlayerScript : MonoBehaviour
 
         return distance < 5f;
     }
-  
-    /** void FinishStage()
-     {
-         StartCoroutine(coroutine);
 
-         ambience.Stop();
-         levelCloser.Play(0);
-     }
+    void FinishStage()
+    {
+        StartCoroutine(coroutine);
 
-     IEnumerator RunShockEffectAndLeaveStage()
-     {
-         while (true)
-         {
-             shockEffect.enabled = true;
+        ambience.Stop();
+        levelCloser.Play(0);
+    }
 
-             yield return new WaitForSeconds(levelCloser.clip.length);
+    IEnumerator RunShockEffectAndLeaveStage()
+    {
+        while (true)
+        {
+            shockEffect.enabled = true;
 
-             shockEffect.enabled = false;
+            yield return new WaitForSeconds(levelCloser.clip.length);
 
-             StopCoroutine(coroutine);
+            shockEffect.enabled = false;
 
-             GoToNextStage();
+            StopCoroutine(coroutine);
 
-             yield return null;
-         }
-     }
+            GoToNextStage();
+
+            yield return null;
+        }
+    }
 
     void GoToNextStage()
     {
         SceneManager.LoadScene("House");
     }
 
-          public void StartChallenge()
-     {
+    public void StartChallenge()
+    {
 
-         Debug.Log("Starteeed");
-         //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
-         showingFlowers.SetActive(true);
+        Debug.Log("Starteeed");
+        //Score.text = "3rd: " + Time.realtimeSinceStartup; //or coins.SetText(“text”);
+        showingFlowers.SetActive(true);
 
-         StopAnimation(cow);
+        StopAnimation(cow);
         StopAnimation(sheep);
 
         UpdateDirectionToTarget();
-     }
+    }
 
-     void StopAnimation(GameObject obj)
-     {
-         var animation = obj.GetComponent<Animator>();
-         animation.enabled = false;
-     }
+    void StopAnimation(GameObject obj)
+    {
+        var animation = obj.GetComponent<Animator>();
+        animation.enabled = false;
+    }
     void UpdateDirectionToTarget()
     {
 
@@ -168,3 +168,4 @@ public class PlayerScript : MonoBehaviour
         print("Colide " + other);
     }
 }
+

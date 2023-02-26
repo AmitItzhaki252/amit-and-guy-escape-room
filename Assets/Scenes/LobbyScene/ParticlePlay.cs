@@ -5,12 +5,12 @@ using UnityEngine;
 public class ParticlePlay : MonoBehaviour
 { 
     public GameObject particle;
-    public int t;
+    public float t;
 
     // Start is called before the first frame update
     void Start()
     {
-        t = 2;
+        t = 2f;
     }
 
     // Update is called once per frame
@@ -18,6 +18,6 @@ public class ParticlePlay : MonoBehaviour
     {
         t = t - Time.deltaTime;
         if (t <= 0)
-            ParticlePlay.SetActive(false);
+            particle.SetActive(false);
     }
 }

@@ -4,14 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Fire
+  - lb_bird
   - Blocking
   - Hammer
-<<<<<<< HEAD
   - BigHammer
-=======
   - Pushable
->>>>>>> aabe29d3c61cc9ce7ae6c071ee06b4661ddc9699
   layers:
   - Default
   - TransparentFX
@@ -44,7 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - Teleport
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
