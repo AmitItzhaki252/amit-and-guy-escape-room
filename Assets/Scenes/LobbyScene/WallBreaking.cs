@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class WallBreaking : MonoBehaviour
 {
     public GameObject wall;
+    public AudioSource breakSound;
+    public int HP;
+    public ParticleSystem particleBurst;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        particleBurst.Stop();
+        HP = 3;
+        //hitSound = GetComponent<AudioSource>();
+       // breakSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -18,15 +25,16 @@ public class WallBreaking : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("C-O-L-L-I-T-I-O-N");
         if (other.gameObject.CompareTag("Hammer"))
         {
-            Debug.Log("Hammer");
-            //wall.gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.Log("Not Hammer");
+            HP = HP - 1;
+            if (HP == 0)
+            {
+                particleBurst.Emit();
+                wall.SetActive(false);
+            }
+            else
+            breakSound.Play();
         }
     }
 }
