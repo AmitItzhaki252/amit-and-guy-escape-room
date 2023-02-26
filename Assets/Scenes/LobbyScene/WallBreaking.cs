@@ -7,7 +7,7 @@ public class WallBreaking : MonoBehaviour
     public GameObject wall;
     public AudioSource breakSound;
     public int HP;
-    public ParticleSystem particleBurst;
+    public ParticleSystem particle;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class WallBreaking : MonoBehaviour
             HP = HP - 1;
             if (HP == 0)
             {
-                particleBurst.Emit();
+                partic.SetActive(true);
                 wall.SetActive(false);
             }
             else
