@@ -183,6 +183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultLocation: {x: 0, y: 0, z: 0}
+  destinationLocation: {x: 0, y: 0, z: 0}
+  objectToDisable: {fileID: 0}
+  playerScript: {fileID: 0}
+  heartEffect: {fileID: 0}
 --- !u!1 &3569510317163610077
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,16 +336,14 @@ MonoBehaviour:
   showingFlowers: {fileID: 0}
   target: {fileID: 0}
   canvas: {fileID: 0}
+  score1: {fileID: 0}
+  score2: {fileID: 0}
+  score3: {fileID: 0}
   ambience: {fileID: 0}
   levelOpener: {fileID: 0}
   levelCloser: {fileID: 0}
-  timetxt: {fileID: 0}
   shockEffect: {fileID: 3569510317535139406}
-  secN: 0
-  minN: 0
-  sec: 
-  min: 
-  TimerOn: 0
+  cheat: {fileID: 0}
 --- !u!1 &3569510317846608976
 GameObject:
   m_ObjectHideFlags: 0

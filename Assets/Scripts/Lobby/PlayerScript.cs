@@ -25,8 +25,6 @@ public class PlayerScript : MonoBehaviour
     private IEnumerator coroutine;
     private bool hasFinishedStage;
 
-    private string[] names = new string[] { "Amit", "Guy", "Omri", "Cow", "Lama", "Sheep", "Scary singer", "Jane", "Jhon", "Dow", "The Ghost" };
-
     public GameObject cheat;
 
     // Start is called before the first frame update
@@ -161,7 +159,6 @@ public class PlayerScript : MonoBehaviour
         var prefScore1 = PlayerPrefs.GetInt("Score1", 0);
 
         score1.text = prefScoreName1 + ": " + prefScore1;
-        Debug.Log(score1.text);
 
         var prefScoreName2 = PlayerPrefs.GetString("ScoreName2", "It could be you 2!");
         var prefScore2 = PlayerPrefs.GetInt("Score2", 0);

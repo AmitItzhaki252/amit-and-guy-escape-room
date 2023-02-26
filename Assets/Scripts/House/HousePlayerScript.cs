@@ -49,7 +49,6 @@ public class HousePlayerScript : MonoBehaviour
 
     void StartSound()
     {
-
         levelOpener.Play(0);
         ambience.PlayDelayed(levelOpener.clip.length);
     }
