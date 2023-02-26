@@ -157,17 +157,22 @@ public class PlayerScript : MonoBehaviour
     {
         var prefScoreName1 = PlayerPrefs.GetString("ScoreName1", "It could be you 1!");
         var prefScore1 = PlayerPrefs.GetInt("Score1", 0);
+        prefScoreName1 = prefScoreName1 == "" ? "It could be you 1!" : prefScoreName1;
 
         score1.text = prefScoreName1 + ": " + prefScore1;
 
         var prefScoreName2 = PlayerPrefs.GetString("ScoreName2", "It could be you 2!");
         var prefScore2 = PlayerPrefs.GetInt("Score2", 0);
-        
+        prefScoreName2 = prefScoreName2 == "" ? "It could be you 2!" : prefScoreName2;
+
+
         score2.text = prefScoreName2 + ": " + prefScore2;
 
         var prefScoreName3 = PlayerPrefs.GetString("ScoreName3", "It could be you 3!");
         var prefScore3 = PlayerPrefs.GetInt("Score3", 0);
-        
+        prefScoreName3 = prefScoreName3 == "" ? "It could be you 3!" : prefScoreName3;
+
+
         score3.text = prefScoreName3 + ": " + prefScore3;
     }
 }

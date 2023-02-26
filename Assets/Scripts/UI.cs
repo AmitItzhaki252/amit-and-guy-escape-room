@@ -24,12 +24,14 @@ public class UI : MonoBehaviour
     {
         Canvas.SetActive(false);
     }
-    
+
     public void ExitApp()
     {
         Debug.Log("Exit app");
         Application.Quit();
-        EditorApplication.isPlaying = false;
 
+        #if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+        #endif
     }
 }

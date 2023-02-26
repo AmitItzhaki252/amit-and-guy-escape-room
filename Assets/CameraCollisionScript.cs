@@ -60,7 +60,9 @@ public class CameraCollisionScript : MonoBehaviour
         }
         else if (!(playerScript is null) && other.gameObject.name == "Exit btn")
         {
-            UnityEditor.EditorApplication.isPlaying = false;
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
     }
 

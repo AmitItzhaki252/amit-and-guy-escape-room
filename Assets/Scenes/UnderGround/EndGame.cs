@@ -38,6 +38,8 @@ public class EndGame : MonoBehaviour
             TimeHolder.timerOn = false;
             levelCloser.Play(0);
 
+            Debug.Log("Stage was finished, runnig exit operations");
+
             gameOverText.gameObject.SetActive(true);
             var chosenName = names[Random.Range(0, names.Length)];
 
@@ -53,8 +55,6 @@ public class EndGame : MonoBehaviour
     {
         while (true)
         {
-            //TODO: Show gameover
-
             Debug.Log($"Game over will be shown for {levelCloser.clip.length} seconds");
 
             yield return new WaitForSeconds(levelCloser.clip.length);
@@ -64,7 +64,13 @@ public class EndGame : MonoBehaviour
             StopCoroutine(coroutine);
 
             Application.Quit();
-            EditorApplication.isPlaying = false;
+
+            if (Application.isEditor)
+            {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
+            }
 
             yield return null;
         }
@@ -74,12 +80,15 @@ public class EndGame : MonoBehaviour
     {
         var prefScoreName1 = PlayerPrefs.GetString("ScoreName1");
         var prefScore1 = PlayerPrefs.GetInt("Score1", 0);
+        prefScore1 = prefScore1 == 0 ? 999999 : prefScore1;
 
         var prefScoreName2 = PlayerPrefs.GetString("ScoreName2");
         var prefScore2 = PlayerPrefs.GetInt("Score2", 0);
+        prefScore2 = prefScore2 == 0 ? 999999 : prefScore2;
 
         var prefScoreName3 = PlayerPrefs.GetString("ScoreName3");
         var prefScore3 = PlayerPrefs.GetInt("Score3", 0);
+        prefScore3 = prefScore3 == 0 ? 999999 : prefScore3;
 
         var currentScore = TimeHolder.secN;
         var currentName = chosenName;
